@@ -1,0 +1,1 @@
+# metanit-django-test-project
