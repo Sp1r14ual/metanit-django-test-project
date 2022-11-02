@@ -1,5 +1,4 @@
-from email.headerregistry import ContentTypeHeader
-from django.shortcuts import HttpResponse
+from django.http import HttpResponse
 
 def index(request):
     scheme = request.scheme
@@ -29,3 +28,6 @@ def about(request, name, age):
 
 def contact(request):
     return HttpResponse("<h2>Контакты</h2>")
+
+def user(request, name="Undefined", age=0):
+    return HttpResponse(f"<h2>Имя: {name} Возраст: {age}</h2>")
