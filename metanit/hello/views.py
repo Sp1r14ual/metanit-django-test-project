@@ -1,19 +1,11 @@
-from django.http import JsonResponse
-from django.core.serializers.json import DjangoJSONEncoder
- 
-def index(request):
-    bob = Person("Bob", 41)
-    return JsonResponse(bob, safe=False, encoder=PersonEncoder)
- 
-class Person:
-  
-    def __init__(self, name, age):
-        self.name = name    # имя человека
-        self.age = age        # возраст человека
- 
-class PersonEncoder(DjangoJSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, Person):
-            return {"name": obj.name, "age": obj.age}
-            # return obj.__dict__
-        return super().default(obj)
+from django.http import HttpResponse
+
+def set(request):
+    username = request.GET.get("username", "Undefined")
+    response = HttpResponse(f"Hello {username}")
+    response.set_cookie("username", username)
+    return response
+
+def get(request):
+    username = request.COOKIES["username"]
+    return HttpResponse(f"Hello {username}")
